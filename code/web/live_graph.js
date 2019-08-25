@@ -19,10 +19,12 @@ window.onload = function () {
                 horizontalAlign: "left"
             },
             axisY: {
-                includeZero: false
+                includeZero: false,
+                gridThickness: 0
             },      
             data: [{
                 type: "line",
+                lineColor: "orange",
                 axisYType: "secondary",
                 name: "Forecast",
                 showInLegend: true,
@@ -31,6 +33,7 @@ window.onload = function () {
             },
                   {
                 type: "line",
+                lineColor: "purple",
                 axisYType: "secondary",
                 name: "Real-Time Data",
                 showInLegend: true,
