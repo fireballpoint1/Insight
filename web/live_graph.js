@@ -27,7 +27,7 @@ window.onload = function () {
                 name: "Forecast",
                 showInLegend: true,
                 markerSize: 0,
-                dataPoints: genDps(handshake.yhat)
+                dataPoints: []
             },
                   {
                 type: "line",
@@ -40,12 +40,11 @@ window.onload = function () {
         });
         
         var updateInterval = 1000;
-        var dataLength = 50; // number of dataPoints visible at any point
+        var dataLength = 20; // number of dataPoints visible at any point
         var progress = 0;
         var handshake = handshake;
 
-        function updateChart (count) {
-            console.log(progress)
+        function updateChart(count) {
             
             // Poll server for latest data
             var msg = {
@@ -60,14 +59,15 @@ window.onload = function () {
             Http.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     console.log(Http.getResponseHeader('Content-Type'))
-//                     console.log(Http.responseText)
+                    // console.log(Http.responseText)
                     if (Http.getResponseHeader('Content-Type') == 'application/json') {
-//                         console.log(JSON.parse(Http.responseText))
+                        console.log(JSON.parse(Http.responseText))
                         var polling = JSON.parse(Http.responseText)
 
                         var length = chart.options.data[1].dataPoints.length;
-                        chart.options.data[0].dataPoints.push({ y: handshake.yhat[progress+2000]})
-                        chart.options.data[1].dataPoints.push({ y: polling.y});
+                        chart.options.data[0].dataPoints.push({x:  progress, y: handshake.yhat[progress+2000]})
+                        chart.options.data[1].dataPoints.push({x:  progress,  y: polling.y});
+                        
                         if (length+1 > dataLength) {
                             chart.options.data[0].dataPoints.shift();
                             chart.options.data[1].dataPoints.shift();
@@ -100,7 +100,7 @@ window.onload = function () {
     Http.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             console.log(Http.getResponseHeader('Content-Type'));
-            console.log(Http.responseText);
+            // console.log(Http.responseText);
             if (Http.getResponseHeader('Content-Type') == 'application/json') {
                 console.log(JSON.parse(Http.responseText));
                 var handshake = JSON.parse(Http.responseText);
