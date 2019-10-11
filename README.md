@@ -25,4 +25,4 @@ To demo the app, perform the following steps in order;
 
 ## Credits
 
-Created by team _**Do-Little**_ for ***Howzhack '19*.
+Created by team _**Do-Little**_ for *__Howzhack '19__*.
